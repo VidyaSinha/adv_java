@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<header th:fragment="header" class="bg-white shadow-md">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="text-2xl font-bold">ArtistCom</div>
+        <nav class="space-x-4">
+            <a class="text-gray-600 hover:text-gray-800" th:href="@{/}">Home</a>
+            <a class="text-gray-600 hover:text-gray-800" th:href="@{/about}">About</a>
+            <a class="text-gray-600 hover:text-gray-800" th:href="@{/community}">Community</a>
+            <a class="text-gray-600 hover:text-gray-800" th:href="@{/explore}">Explore</a>
+            <a class="text-gray-600 hover:text-gray-800" th:href="@{/profile}">Profile</a>
+            <a class="bg-yellow-500 text-white px-4 py-2 rounded-full hover:bg-yellow-600" th:href="@{/logout}">Sign Out</a>
+        </nav>
+    </div>
+</header>
+</html>

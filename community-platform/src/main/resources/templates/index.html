@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>ArtistCom</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+        font-family: 'Roboto', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-800">
+<!-- Include the header -->
+<div th:replace="~{fragments/header}"></div>
+
+<!-- Hero Section -->
+<section class="relative">
+  <img alt="A misty forest with tall trees and a path leading into the distance" class="w-full h-96 object-cover" src="https://placehold.co/1920x600" />
+</section>
+<!-- Featured Artworks -->
+<section class="container mx-auto px-4 py-16">
+  <h2 class="text-3xl font-bold mb-4">Featured Artworks</h2>
+  <p class="text-gray-600 mb-8">Discover enthralling pieces from talented artists.</p>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+    <div>
+      <img alt="A misty forest with tall trees and a path leading into the distance" class="w-full h-64 object-cover rounded-lg shadow-md" src="https://placehold.co/400x400" />
+    </div>
+    <div>
+      <img alt="A canyon with a view of the night sky filled with stars" class="w-full h-64 object-cover rounded-lg shadow-md" src="https://placehold.co/400x400" />
+    </div>
+    <div>
+      <img alt="A field of poppies with a soft focus" class="w-full h-64 object-cover rounded-lg shadow-md" src="https://placehold.co/400x400" />
+    </div>
+  </div>
+</section>
+<!-- Newsletter Section -->
+<section class="bg-blue-50 py-16">
+  <div class="container mx-auto px-4 text-center">
+    <h3 class="text-xl font-bold text-gray-700 mb-2">STAY INSPIRED</h3>
+    <h2 class="text-3xl font-bold mb-4">Join Our Newsletter</h2>
+    <p class="text-gray-600 mb-8">Get weekly updates on new artworks, upcoming contests, and community highlights.</p>
+    <form class="flex justify-center">
+      <input class="px-4 py-2 w-64 border border-gray-300 rounded-l-full focus:outline-none focus:ring-2 focus:ring-yellow-500" placeholder="Enter your email" type="email"/>
+      <button class="bg-yellow-500 text-white px-6 py-2 rounded-r-full hover:bg-yellow-600" type="submit">Subscribe</button>
+    </form>
+  </div>
+</section>
+<!-- Art Contests Section -->
+<section class="container mx-auto px-4 py-16">
+  <h2 class="text-3xl font-bold mb-4 text-center">OPPORTUNITIES</h2>
+  <h3 class="text-2xl font-bold mb-8 text-center">Art Contests</h3>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+      <h4 class="text-xl font-bold mb-2">Digital Art Masters 2024</h4>
+      <p class="text-gray-600 mb-4">Future Cities</p>
+      <p class="text-gray-600 mb-4">Deadline: March 30, 2024</p>
+      <a class="text-yellow-500 hover:underline" href="#">Learn More</a>
+    </div>
+    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+      <h4 class="text-xl font-bold mb-2">Nature Photography Challenge</h4>
+      <p class="text-gray-600 mb-4">Wildlife in Motion</p>
+      <p class="text-gray-600 mb-4">Deadline: April 15, 2024</p>
+      <a class="text-yellow-500 hover:underline" href="#">Learn More</a>
+    </div>
+    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+      <h4 class="text-xl font-bold mb-2">Abstract Art Competition</h4>
+      <p class="text-gray-600 mb-4">Uncover the Chaos</p>
+      <p class="text-gray-600 mb-4">Deadline: May 1, 2024</p>
+      <a class="text-yellow-500 hover:underline" href="#">Learn More</a>
+    </div>
+  </div>
+</section>
+<!-- Include the footer -->
+<div th:replace="~{fragments/footer}"></div>
+</body>
+</html>

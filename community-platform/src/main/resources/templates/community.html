@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community - ArtistCom</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div th:replace="fragments/header :: header"></div>
+    
+    <main class="px-6">
+        <section class="my-12">
+            <h2 class="text-3xl font-bold mb-6">Join Our Communities</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white shadow-md rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-users text-yellow-600 text-2xl mr-4"></i>
+                        <h3 class="text-xl font-semibold">Artists Circle</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Connect with fellow artists and share your creative journey</p>
+                    <p class="text-gray-500 mb-4">1200 members</p>
+                    <button class="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700" onclick="joinCommunity('artists-circle')">Join Now</button>
+                </div>
+                <div class="bg-white shadow-md rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-chalkboard-teacher text-yellow-600 text-2xl mr-4"></i>
+                        <h3 class="text-xl font-semibold">Mentorship Hub</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Learn from experienced artists and grow your skills</p>
+                    <p class="text-gray-500 mb-4">850 members</p>
+                    <button class="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700" onclick="joinCommunity('mentorship-hub')">Join Now</button>
+                </div>
+                <div class="bg-white shadow-md rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-handshake text-yellow-600 text-2xl mr-4"></i>
+                        <h3 class="text-xl font-semibold">Collaboration Space</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Find partners for your next artistic project</p>
+                    <p class="text-gray-500 mb-4">650 members</p>
+                    <button class="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700" onclick="joinCommunity('collaboration-space')">Join Now</button>
+                </div>
+            </div>
+        </section>
+        
+        <section class="my-12">
+            <h2 class="text-3xl font-bold mb-6">Art Critiques</h2>
+            <div class="flex space-x-4 mb-6">
+                <button class="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700" onclick="filterArt('all')">All</button>
+                <button class="bg-gray-200 text-gray-600 px-4 py-2 rounded hover:bg-gray-300" onclick="filterArt('digital')">Digital Art</button>
+                <button class="bg-gray-200 text-gray-600 px-4 py-2 rounded hover:bg-gray-300" onclick="filterArt('traditional')">Traditional</button>
+                <button class="bg-gray-200 text-gray-600 px-4 py-2 rounded hover:bg-gray-300" onclick="filterArt('abstract')">Abstract</button>
+                <button class="bg-gray-200 text-gray-600 px-4 py-2 rounded hover:bg-gray-300" onclick="filterArt('photography')">Photography</button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                    <img alt="Urban Symphony" class="w-full h-48 object-cover" src="https://storage.googleapis.com/a1aa/image/npscAezPrYRmayFb2FQzQ1YJSq1kIFiFjkBPgFcE5Ws.jpg"/>
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold mb-2">Urban Symphony</h3>
+                        <p class="text-gray-600 mb-2">by Maria Chen</p>
+                        <div class="flex space-x-2">
+                            <button class="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700" onclick="showCritique('urban-symphony')">Critique</button>
+                            <button class="bg-gray-200 text-gray-600 px-4 py-2 rounded hover:bg-gray-300" onclick="showCollaboration('urban-symphony')">Collaborate</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Repeat similar structure for other art pieces -->
+            </div>
+        </section>
+    </main>
+
+    <div th:replace="fragments/footer :: footer"></div>
+
+    <script>
+        function joinCommunity(communityId) {
+            // Redirect to the appropriate community page or show join form
+            window.location.href = `/community/${communityId}/join`;
+        }
+
+        function filterArt(category) {
+            // Implement art filtering logic
+            const buttons = document.querySelectorAll('.flex.space-x-4 button');
+            buttons.forEach(button => {
+                if (button.textContent.toLowerCase().includes(category) || category === 'all') {
+                    button.classList.remove('bg-gray-200', 'text-gray-600');
+                    button.classList.add('bg-yellow-600', 'text-white');
+                } else {
+                    button.classList.remove('bg-yellow-600', 'text-white');
+                    button.classList.add('bg-gray-200', 'text-gray-600');
+                }
+            });
+        }
+
+        function showCritique(artId) {
+            // Redirect to critique page or show critique form
+            window.location.href = `/art/${artId}/critique`;
+        }
+
+        function showCollaboration(artId) {
+            // Redirect to collaboration page or show collaboration form
+            window.location.href = `/art/${artId}/collaborate`;
+        }
+    </script>
+</body>
+</html> 
