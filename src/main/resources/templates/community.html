@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Art Community</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Art Community</h1>
+        
+        <!-- Genre Navigation -->
+        <div class="genre-nav">
+            <button th:each="genre : ${T(com.artcom.community_platform.entity.Artwork.ArtworkGenre).values()}"
+                    th:text="${genre}"
+                    th:onclick="'filterByGenre(\'' + ${genre} + '\')'"
+                    class="genre-btn">
+            </button>
+        </div>
+
+        <!-- Artwork Display -->
+        <div class="artwork-grid">
+            <div th:each="artwork : ${artworks}" class="artwork-card">
+                <img th:src="${artwork.imageUrl}" th:alt="${artwork.title}" class="artwork-image">
+                <div class="artwork-info">
+                    <h3 th:text="${artwork.title}"></h3>
+                    <p th:text="${artwork.description}"></p>
+                    <p class="genre" th:text="${artwork.genre}"></p>
+                    <p class="artist" th:text="${'By ' + artwork.artist.username}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function filterByGenre(genre) {
+            window.location.href = '/community?genre=' + genre;
+        }
+    </script>
+</body>
+</html> 

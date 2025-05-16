@@ -14,6 +14,7 @@ public class CritiqueDTO {
     private String conceptAndMessage;
     private String suggestionsForImprovement;
 
+
     // Explicit getters and setters to ensure they're available
     public Long getArtworkId() {
         return artworkId;

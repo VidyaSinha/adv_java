@@ -21,17 +21,20 @@ public class CritiqueController {
 
     @GetMapping("/{artworkTitle}/critique")
     public String showCritiqueForm(@PathVariable String artworkTitle, Model model) {
-        // Get artwork by title and add to model
-        model.addAttribute("artwork", artworkService.getArtworkByTitle(artworkTitle));
+        var artwork = artworkService.getArtworkByTitle(artworkTitle);
+        if (artwork == null) {
+            return "redirect:/error";  // redirect if artwork is not found
+        }
+        model.addAttribute("artwork", artwork);
         model.addAttribute("critiqueDTO", new CritiqueDTO());
         return "critique_form";
     }
 
     @PostMapping("/{artworkTitle}/critique")
-    public String submitCritique(@PathVariable String artworkTitle, 
-                               @ModelAttribute CritiqueDTO critiqueDTO,
-                               @RequestParam Long criticId) {
-        Critique critique = critiqueService.createCritique(critiqueDTO, criticId);
+    public String submitCritique(@PathVariable String artworkTitle,
+                                 @ModelAttribute CritiqueDTO critiqueDTO,
+                                 @RequestParam Long criticId) {
+        critiqueService.createCritique(critiqueDTO, criticId);
         return "redirect:/art/" + artworkTitle;
     }
 

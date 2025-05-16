@@ -8,11 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("/artworks")
+@RequestMapping("/artwork")
 public class ArtworkController {
 
     @Autowired
@@ -37,11 +38,22 @@ public class ArtworkController {
         return "create_artwork"; // create_artwork.html
     }
 
+
     @PostMapping
     public String createArtwork(@ModelAttribute Artwork artwork) {
+        if (artwork.getArtist() == null || artwork.getArtist().getId() == null) {
+            throw new IllegalArgumentException("Artist must be provided");
+        }
         artworkService.createArtwork(artwork);
-        return "redirect:/artworks";
+        return "redirect:/users/profile"; // or wherever your user profile page is
     }
+
+//    @GetMapping("/profile")
+//    public String userProfile(Model model, Principal principal) {
+//        User user = userService.findByUsername(principal.getName());
+//        model.addAttribute("user", user);
+//        return "profile";
+//    }
 
     @GetMapping("/{id}")
     public String viewArtwork(@PathVariable Long id, Model model) {
@@ -49,6 +61,32 @@ public class ArtworkController {
         model.addAttribute("artwork", artwork);
         return "view_artwork"; // view_artwork.html
     }
+    @PostMapping("/artwork")
+    public String uploadArtwork(
+            @RequestParam("title") String title,
+            @RequestParam("category") String category,
+            @RequestParam("artist.id") Long artistId,
+            @RequestParam("imageFile") MultipartFile imageFile
+    ) {
+        try {
+            // Handle file saving logic (e.g., to local or cloud storage)
+            // For now, assume we just get the original filename
+            String imageUrl = "/uploads/" + imageFile.getOriginalFilename(); // you should save the file and generate actual URL
+
+            // Create the artwork object
+            User artist = userService.getUserById(artistId);
+            Artwork artwork = new Artwork(title, imageUrl, artist, category);
+
+            // Save the artwork
+            artworkService.createArtwork(artwork);
+
+            return "redirect:/users/profile";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error"; // or a proper error page/view
+        }
+    }
+
 
     @PostMapping("/{id}/delete")
     public String deleteArtwork(@PathVariable Long id) {

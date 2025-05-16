@@ -8,6 +8,7 @@
 </head>
 <body>
 <div th:replace="fragments/header"></div>
+
 <main class="max-w-4xl mx-auto p-6">
     <div class="flex items-center space-x-6">
         <div class="relative">
@@ -41,13 +42,41 @@
         </div>
     </div>
 
+    <!-- 🔼 Upload Artwork Form -->
+    <div class="mt-10">
+        <h3 class="text-xl font-bold mb-4">Upload New Artwork</h3>
+        <form th:action="@{/artwork}" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+            <input type="hidden" name="artist.id" th:value="${user.id}"/>
+
+            <div class="mb-4">
+                <label class="block text-gray-700">Title</label>
+                <input type="text" name="title" id="title" class="border border-gray-300 rounded w-full p-2" required />
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-gray-700">Category</label>
+                <input type="text" name="category" id="category" class="border border-gray-300 rounded w-full p-2" required />
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-gray-700">Select Image</label>
+                <input type="file" name="imageFile" id="imageFile" accept="image/*" class="border border-gray-300 rounded w-full p-2" required onchange="previewImage(event)" />
+                <div class="mt-4">
+                    <img id="imagePreview" src="#" alt="Image Preview" class="w-48 h-48 object-cover rounded border mt-2 hidden"/>
+                </div>
+            </div>
+
+            <button type="submit" class="bg-yellow-600 text-white px-4 py-2 rounded">Upload Artwork</button>
+        </form>
+    </div>
+
+    <!-- 🔽 Followers Section -->
     <div class="mt-6">
         <div class="flex border-b border-gray-200">
             <button class="px-4 py-2 text-gray-600 border-b-2 border-yellow-600">Followers</button>
             <button class="px-4 py-2 text-gray-600">Collaborations</button>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-            <!-- Static Follower Cards -->
             <div class="flex items-center p-4 bg-white border rounded shadow-sm">
                 <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-xl font-bold text-gray-500">E</div>
                 <div class="ml-4">
@@ -55,10 +84,50 @@
                     <a href="#" class="text-yellow-600">View Profile</a>
                 </div>
             </div>
-            <!-- Repeat other cards similarly... -->
         </div>
     </div>
 </main>
+
 <div th:replace="fragments/footer"></div>
+
+<!-- ✅ JavaScript for image preview & form validation -->
+<script>
+    function previewImage(event) {
+        const fileInput = event.target;
+        const preview = document.getElementById('imagePreview');
+        const file = fileInput.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = '#';
+            preview.classList.add('hidden');
+        }
+    }
+
+    function validateForm() {
+        const title = document.getElementById('title').value.trim();
+        const category = document.getElementById('category').value.trim();
+        const image = document.getElementById('imageFile').files[0];
+
+        if (!title || !category || !image) {
+            alert("All fields are required!");
+            return false;
+        }
+
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        if (!allowedTypes.includes(image.type)) {
+            alert("Only JPG, PNG or GIF images are allowed.");
+            return false;
+        }
+
+        return true;
+    }
+</script>
 </body>
 </html>

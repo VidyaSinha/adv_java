@@ -41,7 +41,6 @@ public class Critique {
     protected void onCreate() {
         createdAt = LocalDateTime.now();
     }
-
     // Getters and Setters for all fields
     public Long getId() {
         return id;
