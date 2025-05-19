@@ -1,87 +1,133 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>User Profile</title>
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
-<body>
+<body class="bg-gray-100 font-sans leading-relaxed tracking-wide">
+
 <div th:replace="fragments/header"></div>
 
-<main class="max-w-4xl mx-auto p-6">
-    <div class="flex items-center space-x-6">
-        <div class="relative">
-            <div class="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center text-2xl font-bold text-gray-500"
-                 th:text="${user.username.substring(0,1)}">A</div>
-            <button class="absolute bottom-0 right-0 bg-yellow-600 text-white p-2 rounded-full">
-                <i class="fas fa-pencil-alt"></i>
-            </button>
+<main class="flex justify-center p-6">
+    <div class="w-full max-w-6xl">
+        <!-- Messages -->
+        <div th:if="${success}" class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6" role="alert">
+            <p class="font-semibold" th:text="${success}">Profile updated successfully.</p>
         </div>
-        <div>
-            <h2 class="text-3xl font-bold" th:text="${user.username} + ' :The great'">Vidya Sinha :The great</h2>
-            <p class="text-gray-600">
-                Contemporary artist specializing in mixed media and abstract expressionism. Based in San Francisco with a focus on urban themes and nature contrasts.
-            </p>
-            <p class="mt-2">
-                <strong>Website:</strong> <a href="#" class="text-yellow-600">www.vidxart.com</a>
-                <strong>Instagram:</strong> <a href="#" class="text-yellow-600">@vidxart</a>
-            </p>
+        <div th:if="${error}" class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6" role="alert">
+            <p class="font-semibold" th:text="${error}">Error saving profile.</p>
         </div>
-        <a th:href="@{/users/profile/edit}" class="ml-auto bg-gray-200 text-gray-600 px-4 py-2 rounded hover:bg-gray-300">Edit Profile</a>
-    </div>
 
-    <div class="mt-6 flex space-x-6">
-        <div>
-            <p class="text-2xl font-bold">5</p>
-            <p class="text-gray-600">Followers</p>
-        </div>
-        <div>
-            <p class="text-2xl font-bold">3</p>
-            <p class="text-gray-600">Collaborations</p>
-        </div>
-    </div>
-
-    <!-- 🔼 Upload Artwork Form -->
-    <div class="mt-10">
-        <h3 class="text-xl font-bold mb-4">Upload New Artwork</h3>
-        <form th:action="@{/artwork}" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
-            <input type="hidden" name="artist.id" th:value="${user.id}"/>
-
-            <div class="mb-4">
-                <label class="block text-gray-700">Title</label>
-                <input type="text" name="title" id="title" class="border border-gray-300 rounded w-full p-2" required />
-            </div>
-
-            <div class="mb-4">
-                <label class="block text-gray-700">Category</label>
-                <input type="text" name="category" id="category" class="border border-gray-300 rounded w-full p-2" required />
-            </div>
-
-            <div class="mb-4">
-                <label class="block text-gray-700">Select Image</label>
-                <input type="file" name="imageFile" id="imageFile" accept="image/*" class="border border-gray-300 rounded w-full p-2" required onchange="previewImage(event)" />
-                <div class="mt-4">
-                    <img id="imagePreview" src="#" alt="Image Preview" class="w-48 h-48 object-cover rounded border mt-2 hidden"/>
+        <!-- Profile Section -->
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-10">
+            <div class="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
+                <div class="relative">
+                    <div class="w-32 h-32 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center text-4xl font-bold text-white ring-4 ring-yellow-300 shadow-md"
+                         th:text="${profile.username != null ? profile.username.substring(0,1) : user.email.substring(0,1)}">A</div>
+                    <a th:href="@{/profile/edit}" class="absolute bottom-0 right-0 bg-yellow-600 text-white p-3 rounded-full hover:bg-yellow-700 shadow-lg transition" title="Edit Profile">
+                        <i class="fas fa-user-edit"></i>
+                    </a>
+                </div>
+                <div class="text-center md:text-left">
+                    <h2 class="text-4xl font-bold text-gray-800 mb-2" th:text="${profile.username != null ? profile.username : user.email}">Alex Doe</h2>
+                    <p class="text-gray-600 text-lg mb-4" th:text="${profile.bio != null ? profile.bio : 'No bio yet'}">
+                        Digital artist creating layered stories through color and abstraction.
+                    </p>
+                    <div class="flex flex-wrap justify-center md:justify-start gap-4">
+                        <a href="https://example.com" class="inline-flex items-center px-4 py-2 bg-gray-200 text-gray-800 rounded-full hover:bg-yellow-500 hover:text-white transition">
+                            <i class="fas fa-globe mr-2"></i> Website
+                        </a>
+                        <a href="https://instagram.com/alexdoe" class="inline-flex items-center px-4 py-2 bg-gray-200 text-gray-800 rounded-full hover:bg-yellow-500 hover:text-white transition">
+                            <i class="fab fa-instagram mr-2"></i> Instagram
+                        </a>
+                    </div>
                 </div>
             </div>
 
-            <button type="submit" class="bg-yellow-600 text-white px-4 py-2 rounded">Upload Artwork</button>
-        </form>
-    </div>
-
-    <!-- 🔽 Followers Section -->
-    <div class="mt-6">
-        <div class="flex border-b border-gray-200">
-            <button class="px-4 py-2 text-gray-600 border-b-2 border-yellow-600">Followers</button>
-            <button class="px-4 py-2 text-gray-600">Collaborations</button>
+            <!-- Stats -->
+            <div class="mt-8 flex flex-wrap justify-center md:justify-start gap-12 border-t pt-8">
+                <div class="text-center">
+                    <p class="text-3xl font-bold text-yellow-600" th:text="${followers != null ? followers.size() : 0}">123</p>
+                    <p class="text-gray-600">Followers</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-3xl font-bold text-yellow-600" th:text="${following != null ? following.size() : 0}">76</p>
+                    <p class="text-gray-600">Following</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-3xl font-bold text-yellow-600" th:text="${artworks != null ? artworks.size() : 0}">48</p>
+                    <p class="text-gray-600">Artworks</p>
+                </div>
+            </div>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-            <div class="flex items-center p-4 bg-white border rounded shadow-sm">
-                <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-xl font-bold text-gray-500">E</div>
-                <div class="ml-4">
-                    <p class="font-bold">Emily Johnson</p>
-                    <a href="#" class="text-yellow-600">View Profile</a>
+
+        <!-- Artworks Section -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-gray-800 flex items-center"><i class="fas fa-palette mr-2 text-yellow-600"></i>My Artworks</h3>
+                <button onclick="toggleUploadForm()" class="px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition flex items-center">
+                    <i class="fas fa-plus mr-2"></i> Add Artwork
+                </button>
+            </div>
+
+            <!-- Upload Artwork Form -->
+            <div id="uploadForm" class="hidden bg-gray-50 rounded-lg p-6 mb-8 shadow-inner">
+                <h3 class="text-xl font-bold mb-4 text-gray-700 flex items-center"><i class="fas fa-upload mr-2 text-yellow-600"></i>Upload New Artwork</h3>
+                <form onsubmit="uploadArtwork(event)" class="space-y-4" enctype="multipart/form-data">
+                    <input type="hidden" name="artist.id" th:value="${user.id}" />
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">Title</label>
+                        <input type="text" name="title" id="title" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-yellow-500" required />
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">Category</label>
+                        <select name="category" id="category" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-yellow-500" required>
+                            <option value="" disabled selected>Select Category</option>
+                            <option value="PORTRAIT">Portrait</option>
+                            <option value="LANDSCAPE">Landscape</option>
+                            <option value="ABSTRACT">Abstract</option>
+                            <option value="STILL_LIFE">Still Life</option>
+                            <option value="DIGITAL">Digital</option>
+                            <option value="TRADITIONAL">Traditional</option>
+                            <option value="UNCATEGORIZED">Uncategorized</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">Select Image</label>
+                        <input type="file" name="imageFile" id="imageFile" accept="image/*" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-yellow-500" onchange="previewImage(event)" required />
+                        <div class="mt-4">
+                            <img id="imagePreview" src="#" alt="Image Preview" class="w-48 h-48 object-cover rounded-lg border mt-2 hidden shadow-md" />
+                        </div>
+                    </div>
+                    <div class="flex justify-end gap-4">
+                        <button type="button" onclick="toggleUploadForm()" class="px-6 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400">Cancel</button>
+                        <button type="submit" class="px-6 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700">Upload Artwork</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Artworks Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div th:each="artwork : ${artworks}" class="bg-white rounded-lg shadow-lg overflow-hidden group">
+                    <div class="relative">
+                        <img th:src="${artwork.imageUrl}" th:alt="${artwork.title}" class="w-full h-64 object-cover transition-transform group-hover:scale-105" />
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-opacity flex items-center justify-center">
+                            <div class="opacity-0 group-hover:opacity-100 transition-opacity flex space-x-2">
+                                <a th:href="@{'/artwork/' + ${artwork.id}}" class="bg-white text-gray-800 p-2 rounded-full hover:bg-yellow-500 hover:text-white transition">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <button onclick="deleteArtwork(this)" th:data-artwork-id="${artwork.id}" class="bg-white text-gray-800 p-2 rounded-full hover:bg-red-500 hover:text-white transition">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-bold text-lg mb-1" th:text="${artwork.title}">Artwork Title</h4>
+                        <p class="text-gray-600 text-sm mb-1" th:text="${artwork.category}">Abstract</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -90,44 +136,59 @@
 
 <div th:replace="fragments/footer"></div>
 
-<!-- ✅ JavaScript for image preview & form validation -->
 <script>
-    function previewImage(event) {
-        const fileInput = event.target;
-        const preview = document.getElementById('imagePreview');
-        const file = fileInput.files[0];
+    function toggleUploadForm() {
+        document.getElementById('uploadForm').classList.toggle('hidden');
+    }
 
+    function previewImage(event) {
+        const file = event.target.files[0];
+        const preview = document.getElementById('imagePreview');
         if (file) {
             const reader = new FileReader();
             reader.onload = function(e) {
                 preview.src = e.target.result;
-                preview.classList.remove('hidden');
+                preview.classList.remove("hidden");
             };
             reader.readAsDataURL(file);
-        } else {
-            preview.src = '#';
-            preview.classList.add('hidden');
         }
     }
 
-    function validateForm() {
-        const title = document.getElementById('title').value.trim();
-        const category = document.getElementById('category').value.trim();
-        const image = document.getElementById('imageFile').files[0];
+    async function uploadArtwork(event) {
+        event.preventDefault();
+        const form = event.target;
+        const formData = new FormData(form);
 
-        if (!title || !category || !image) {
-            alert("All fields are required!");
-            return false;
+        try {
+            const response = await fetch("/artwork/upload", {
+                method: "POST",
+                body: formData,
+            });
+    
+            if (!response.ok) throw new Error("Failed to upload artwork.");
+    
+            window.location.reload();
+        } catch (error) {
+            alert(error.message);
         }
-
-        const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-        if (!allowedTypes.includes(image.type)) {
-            alert("Only JPG, PNG or GIF images are allowed.");
-            return false;
+    }
+    
+    async function deleteArtwork(button) {
+        const artworkId = button.getAttribute("data-artwork-id");
+        if (!confirm("Are you sure you want to delete this artwork?")) return;
+    
+        try {
+            const response = await fetch(`/artwork/delete/${artworkId}`, {
+                method: "DELETE",
+            });
+    
+            if (!response.ok) throw new Error("Failed to delete artwork.");
+    
+            window.location.reload();
+        } catch (error) {
+            alert(error.message);
         }
-
-        return true;
     }
 </script>
-</body>
-</html>
+ </body> 
+ </html>     

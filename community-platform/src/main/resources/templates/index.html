@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>ArtistCom</title>
+  <title>Art Community Platform</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
   <style>
@@ -13,68 +14,127 @@
     }
   </style>
 </head>
-<body class="bg-white text-gray-800">
+<body class="bg-gray-50">
 <!-- Include the header -->
-<div th:replace="~{fragments/header}"></div>
+<div th:replace="fragments/header"></div>
 
 <!-- Hero Section -->
-<section class="relative">
-  <img alt="A misty forest with tall trees and a path leading into the distance" class="w-full h-96 object-cover" src="https://placehold.co/1920x600" />
-</section>
-<!-- Featured Artworks -->
-<section class="container mx-auto px-4 py-16">
-  <h2 class="text-3xl font-bold mb-4">Featured Artworks</h2>
-  <p class="text-gray-600 mb-8">Discover enthralling pieces from talented artists.</p>
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+<section class="relative h-screen">
+  <div class="absolute inset-0">
+    <img th:src="@{/images/1.jpg}" alt="Hero Background" class="w-full h-full object-cover">
+    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+  </div>
+  <div class="relative z-10 flex items-center justify-center h-full text-center text-white px-4">
     <div>
-      <img alt="A misty forest with tall trees and a path leading into the distance" class="w-full h-64 object-cover rounded-lg shadow-md" src="https://placehold.co/400x400" />
-    </div>
-    <div>
-      <img alt="A canyon with a view of the night sky filled with stars" class="w-full h-64 object-cover rounded-lg shadow-md" src="https://placehold.co/400x400" />
-    </div>
-    <div>
-      <img alt="A field of poppies with a soft focus" class="w-full h-64 object-cover rounded-lg shadow-md" src="https://placehold.co/400x400" />
+      <h1 class="text-5xl md:text-6xl font-bold mb-6">Welcome to Art Community</h1>
+      <p class="text-xl md:text-2xl mb-8">Connect, Create, and Collaborate with Artists Worldwide</p>
+      <a href="/signup" class="bg-yellow-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-yellow-700 transition-colors">
+        Join Now
+      </a>
     </div>
   </div>
 </section>
-<!-- Newsletter Section -->
-<section class="bg-blue-50 py-16">
-  <div class="container mx-auto px-4 text-center">
-    <h3 class="text-xl font-bold text-gray-700 mb-2">STAY INSPIRED</h3>
-    <h2 class="text-3xl font-bold mb-4">Join Our Newsletter</h2>
-    <p class="text-gray-600 mb-8">Get weekly updates on new artworks, upcoming contests, and community highlights.</p>
-    <form class="flex justify-center">
-      <input class="px-4 py-2 w-64 border border-gray-300 rounded-l-full focus:outline-none focus:ring-2 focus:ring-yellow-500" placeholder="Enter your email" type="email"/>
-      <button class="bg-yellow-500 text-white px-6 py-2 rounded-r-full hover:bg-yellow-600" type="submit">Subscribe</button>
-    </form>
-  </div>
-</section>
-<!-- Art Contests Section -->
-<section class="container mx-auto px-4 py-16">
-  <h2 class="text-3xl font-bold mb-4 text-center">OPPORTUNITIES</h2>
-  <h3 class="text-2xl font-bold mb-8 text-center">Art Contests</h3>
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-    <div class="bg-white p-6 rounded-lg shadow-md text-center">
-      <h4 class="text-xl font-bold mb-2">Digital Art Masters 2024</h4>
-      <p class="text-gray-600 mb-4">Future Cities</p>
-      <p class="text-gray-600 mb-4">Deadline: March 30, 2024</p>
-      <a class="text-yellow-500 hover:underline" href="#">Learn More</a>
-    </div>
-    <div class="bg-white p-6 rounded-lg shadow-md text-center">
-      <h4 class="text-xl font-bold mb-2">Nature Photography Challenge</h4>
-      <p class="text-gray-600 mb-4">Wildlife in Motion</p>
-      <p class="text-gray-600 mb-4">Deadline: April 15, 2024</p>
-      <a class="text-yellow-500 hover:underline" href="#">Learn More</a>
-    </div>
-    <div class="bg-white p-6 rounded-lg shadow-md text-center">
-      <h4 class="text-xl font-bold mb-2">Abstract Art Competition</h4>
-      <p class="text-gray-600 mb-4">Uncover the Chaos</p>
-      <p class="text-gray-600 mb-4">Deadline: May 1, 2024</p>
-      <a class="text-yellow-500 hover:underline" href="#">Learn More</a>
+
+<!-- Features Section -->
+<section class="py-20 px-4">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-4xl font-bold text-center mb-12">Why Join Our Community?</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Feature 1 -->
+      <div class="text-center">
+        <img th:src="@{/images/2.jpg}" alt="Art Critique" class="w-full h-64 object-cover rounded-lg mb-6">
+        <h3 class="text-2xl font-semibold mb-4">Art Critique</h3>
+        <p class="text-gray-600">Get valuable feedback from experienced artists and art enthusiasts.</p>
+      </div>
+      <!-- Feature 2 -->
+      <div class="text-center">
+        <img th:src="@{/images/3.jpg}" alt="Collaboration" class="w-full h-64 object-cover rounded-lg mb-6">
+        <h3 class="text-2xl font-semibold mb-4">Collaboration</h3>
+        <p class="text-gray-600">Find partners for exciting art projects and exhibitions.</p>
+      </div>
+      <!-- Feature 3 -->
+      <div class="text-center">
+        <img th:src="@{/images/4.jpg}" alt="Community" class="w-full h-64 object-cover rounded-lg mb-6">
+        <h3 class="text-2xl font-semibold mb-4">Community</h3>
+        <p class="text-gray-600">Connect with like-minded artists and share your journey.</p>
+      </div>
     </div>
   </div>
 </section>
+
+<!-- About Section -->
+<section class="py-20 px-4 bg-gray-100">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-4xl font-bold text-center mb-12">About Us</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <!-- Developer Info -->
+      <div class="space-y-6">
+        <h3 class="text-3xl font-bold text-yellow-600">Meet the Developer</h3>
+        <div class="flex items-center space-x-4 mb-6">
+          <div class="w-20 h-20 rounded-full overflow-hidden">
+            <img th:src="@{/images/me.jpg}" alt="Vidya Sinha" class="w-full h-full object-cover">
+          </div>
+          <div>
+            <h4 class="text-2xl font-semibold">Vidya Sinha</h4>
+            <p class="text-gray-600">Full Stack Developer</p>
+          </div>
+        </div>
+        <p class="text-gray-700 leading-relaxed">
+          Hi! I'm Vidya Sinha, the developer behind this Art Community Platform. As a passionate developer and art enthusiast,
+          I created this platform to bring artists together, foster creativity, and build meaningful connections in the art world.
+        </p>
+        <div class="flex space-x-4">
+          <a href="#" class="text-gray-600 hover:text-yellow-600">
+            <i class="fab fa-github text-2xl"></i>
+          </a>
+          <a href="#" class="text-gray-600 hover:text-yellow-600">
+            <i class="fab fa-linkedin text-2xl"></i>
+          </a>
+          <a href="#" class="text-gray-600 hover:text-yellow-600">
+            <i class="fab fa-twitter text-2xl"></i>
+          </a>
+        </div>
+      </div>
+      <!-- Platform Info -->
+      <div class="space-y-6">
+        <h3 class="text-3xl font-bold text-yellow-600">About the Platform</h3>
+        <p class="text-gray-700 leading-relaxed">
+          The Art Community Platform is a vibrant space where artists can showcase their work, receive constructive feedback,
+          and collaborate on exciting projects. Our mission is to create an inclusive environment that nurtures creativity
+          and fosters meaningful connections in the art world.
+        </p>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-white p-4 rounded-lg shadow-sm">
+            <h4 class="font-semibold text-lg mb-2">Our Vision</h4>
+            <p class="text-gray-600">To be the leading platform for artistic collaboration and growth.</p>
+          </div>
+          <div class="bg-white p-4 rounded-lg shadow-sm">
+            <h4 class="font-semibold text-lg mb-2">Our Mission</h4>
+            <p class="text-gray-600">To empower artists through community and collaboration.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action -->
+<section class="bg-yellow-600 text-white py-20 px-4">
+  <div class="max-w-4xl mx-auto text-center">
+    <h2 class="text-4xl font-bold mb-6">Ready to Start Your Artistic Journey?</h2>
+    <p class="text-xl mb-8">Join our community today and unlock endless possibilities for growth and collaboration.</p>
+    <div class="flex justify-center space-x-4">
+      <a href="/signup" class="bg-white text-yellow-600 px-8 py-3 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-colors">
+        Sign Up
+      </a>
+      <a href="/login" class="border-2 border-white text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-white hover:text-yellow-600 transition-colors">
+        Login
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- Include the footer -->
-<div th:replace="~{fragments/footer}"></div>
+<div th:replace="fragments/footer"></div>
 </body>
 </html>

@@ -1,11 +1,13 @@
+
+<!-- Footer -->
 <footer class="bg-gray-100 py-8">
     <div class="container mx-auto px-4">
         <div class="flex flex-wrap justify-between">
-            <div class="w-full md:w-1/4 mb-4 md:mb-0">
+            <div class="w-full sm:w-1/2 md:w-1/4 mb-6 md:mb-0">
                 <h4 class="text-lg font-bold mb-2">ArtistCom</h4>
                 <p class="text-gray-600">A community celebrating creativity and artistic expression.</p>
             </div>
-            <div class="w-full md:w-1/4 mb-4 md:mb-0">
+            <div class="w-full sm:w-1/2 md:w-1/4 mb-6 md:mb-0">
                 <h4 class="text-lg font-bold mb-2">Quick Links</h4>
                 <ul class="text-gray-600">
                     <li><a class="hover:underline" href="#">About Us</a></li>
@@ -13,7 +15,7 @@
                     <li><a class="hover:underline" href="#">Explore Art</a></li>
                 </ul>
             </div>
-            <div class="w-full md:w-1/4 mb-4 md:mb-0">
+            <div class="w-full sm:w-1/2 md:w-1/4 mb-6 md:mb-0">
                 <h4 class="text-lg font-bold mb-2">Support</h4>
                 <ul class="text-gray-600">
                     <li><a class="hover:underline" href="#">FAQ</a></li>
@@ -21,16 +23,27 @@
                     <li><a class="hover:underline" href="#">Privacy Policy</a></li>
                 </ul>
             </div>
-            <div class="w-full md:w-1/4 mb-4 md:mb-0">
+            <div class="w-full sm:w-1/2 md:w-1/4 mb-6 md:mb-0">
                 <h4 class="text-lg font-bold mb-2">Follow Us</h4>
-                <div class="flex space-x-4">
-                    <a class="text-gray-600 hover:text-gray-800" href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a class="text-gray-600 hover:text-gray-800" href="#"><i class="fab fa-twitter"></i></a>
-                    <a class="text-gray-600 hover:text-gray-800" href="#"><i class="fab fa-instagram"></i></a>
+                <div class="flex space-x-4 text-2xl">
+                    <a class="text-gray-600 hover:text-gray-800" href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a class="text-gray-600 hover:text-gray-800" href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a class="text-gray-600 hover:text-gray-800" href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
         </div>
         <div class="text-center text-gray-600 mt-8">© 2024 ArtistCom. All rights reserved.</div>
     </div>
 </footer>
->
+
+<!-- Mobile menu toggle script -->
+<script>
+    const btn = document.getElementById('menu-btn');
+    const menu = document.getElementById('mobile-menu');
+
+    btn.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
+    });
+</script>
+
+

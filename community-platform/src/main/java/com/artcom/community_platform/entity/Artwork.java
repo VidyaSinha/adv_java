@@ -5,16 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "artwork")
-
+@Table(name = "artworks")
 public class Artwork {
 
     public enum ArtworkGenre {
-        LANDSCAPE,
         PORTRAIT,
-        STILL_LIFE,
+        LANDSCAPE,
         ABSTRACT,
-        POP_ART
+        STILL_LIFE,
+        DIGITAL,
+        TRADITIONAL,
+        UNCATEGORIZED
     }
 
     @Id
@@ -36,8 +37,7 @@ public class Artwork {
     @OneToMany(mappedBy = "artwork", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Critique> critiques = new ArrayList<>();
 
-    public Artwork() {
-    }
+    public Artwork() {}
 
     public Artwork(String title, String imageUrl, User artist, ArtworkGenre category) {
         this.title = title;
@@ -46,7 +46,7 @@ public class Artwork {
         this.category = category;
     }
 
-    // Getters and Setters
+    // Getters and setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

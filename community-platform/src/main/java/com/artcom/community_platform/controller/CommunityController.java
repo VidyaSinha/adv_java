@@ -49,7 +49,7 @@ public class CommunityController {
     }
 
     @PostMapping("/art/{artId}/critique")
-    public String submitCritique(@PathVariable String artId, @ModelAttribute CritiqueDTO critiqueDTO) {
+    public String submitCritique(@PathVariable String artId, @ModelAttribute CritiqueDTO critiqueDTO) throws Exception {
         // For now, using a hardcoded critic ID (1). In a real app, get this from the session
         critiqueDTO.setArtworkId(Long.parseLong(artId));
         critiqueService.createCritique(critiqueDTO, 1L);

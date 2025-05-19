@@ -33,7 +33,7 @@ public class CritiqueController {
     @PostMapping("/{artworkTitle}/critique")
     public String submitCritique(@PathVariable String artworkTitle,
                                  @ModelAttribute CritiqueDTO critiqueDTO,
-                                 @RequestParam Long criticId) {
+                                 @RequestParam Long criticId) throws Exception {
         critiqueService.createCritique(critiqueDTO, criticId);
         return "redirect:/art/" + artworkTitle;
     }
